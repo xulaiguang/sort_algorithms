@@ -1,11 +1,12 @@
-dirs := $(subst .,,$(shell find . -type d))
+dirs := $(subst .,,$(shell find . -maxdepth 1 -type d))
 algos := $(subst /,,$(dirs))
+algos := $(subst git,,$(algos))
 sort_bin := $(addsuffix /sort,$(algos))
 #$(warning $(dirs))
 #$(warning $(algos))
 #$(warning $(sort_bin))
 
-.PHONY: clean all
+.PHONY: clean all performance
 
 all: $(algos)
 
@@ -16,6 +17,9 @@ $(algos): %: %/sort
 
 $(sort_bin): %: %.c sort.h main.c
 	$(CC) main.c $< -o $@
+
+performance: $(sort_bin)
+	@for alg in $(algos); do echo "$$alg"; $$alg/sort random | grep consumed; echo ""; done
 
 clean:
 	rm $(shell find . -type f -name "sort")
