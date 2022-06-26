@@ -14,7 +14,7 @@ $(algos): %: %/sort
 	$@/sort ascend
 	$@/sort descend
 
-$(sort_bin): %: %.c sort.h
+$(sort_bin): %: %.c sort.h main.c
 	$(CC) main.c $< -o $@
 
 clean:
