@@ -8,33 +8,6 @@
 
 #include "../sort.h"
 
-int partition(int *array, int lo, int hi)
-{
-	int i = lo + 1, j = hi - 1;
-	while (1) {
-		while (array[i] < array[lo]) {
-			i++;
-			if (i == hi)
-				break;
-		}
-		while (array[lo] < array[j]) {
-			j--;
-			if (j == lo)
-				break;
-		}
-
-		if (i > j)
-			break;
-
-		swap(array, i, j);
-		i++;
-		j--;
-	}
-
-	swap(array, lo, j);
-	return j;
-}
-
 void __sort(int *array, int lo, int hi)
 {
 	if (hi <= lo + 1)
