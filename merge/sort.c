@@ -74,4 +74,5 @@ void sort(int *array, int size)
 	memcpy(aux, array, size * sizeof(int));
 
 	__sort(array, aux, 0, size);
+	free(aux);
 }
