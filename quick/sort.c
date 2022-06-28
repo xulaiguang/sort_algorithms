@@ -3,14 +3,14 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include <assert.h>
 
 #include "../sort.h"
 
+// [lo, hi)
 int partition(int *array, int lo, int hi)
 {
 	int i = lo + 1, j = hi - 1;
-	while (1) {
+	while (i < hi && j > lo) {
 		while (array[i] < array[lo]) {
 			i++;
 			if (i == hi)
