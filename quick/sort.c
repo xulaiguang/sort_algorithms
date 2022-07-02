@@ -11,12 +11,12 @@ int partition(int *array, int lo, int hi)
 {
 	int i = lo + 1, j = hi - 1;
 	while (i < hi && j > lo) {
-		while (array[i] < array[lo]) {
+		while (less(array, i, lo)) {
 			i++;
 			if (i == hi)
 				break;
 		}
-		while (array[lo] < array[j]) {
+		while (less(array, lo, j)) {
 			j--;
 			if (j == lo)
 				break;
