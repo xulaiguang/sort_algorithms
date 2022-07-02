@@ -10,11 +10,21 @@
 
 static int compare_count = 0;
 static int swap_count = 0;
+static int less_count = 0;
 
 int compare(int *array, int x, int y)
 {
 	compare_count++;
 	if (array[x] <= array[y])
+		return 1;
+	else
+		return 0;
+}
+
+int less(int *array, int x, int y)
+{
+	less_count++;
+	if (array[x] < array[y])
 		return 1;
 	else
 		return 0;
@@ -39,6 +49,11 @@ void print(int *array, int size)
 void print_compare_count()
 {
 	printf("compare: %d\n", compare_count);
+}
+
+void print_less_count()
+{
+	printf("less: %d\n", less_count);
 }
 
 void print_swap_count()
@@ -71,11 +86,41 @@ int *generate_random_array(int len)
 {
 	int *array = malloc(len * sizeof(int));
 	for (int i = 0; i < len; i++) {
+		array[i] = i;
+	}
+
+	for (int i = 1; i < len; i++) {
+		int r = getrandom(i+1);
+		if (r != i) {
+			int tmp = array[i];
+			array[i] = array[r];
+			array[r] = tmp;
+		}
+	}
+
+	return array;
+}
+
+int *generate_random_duplicated_array(int len)
+{
+	int *array = malloc(len * sizeof(int));
+	for (int i = 0; i < len; i++) {
 		array[i] = getrandom(len);
 	}
 
 	return array;
 }
+
+int *generate_all_equal_array(int len)
+{
+	int *array = malloc(len * sizeof(int));
+	for (int i = 0; i < len; i++) {
+		array[i] = 1;
+	}
+
+	return array;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -113,6 +158,7 @@ int main(int argc, char *argv[])
 
 	assert(is_sorted(array, len));
 	print_compare_count();
+	print_less_count();
 	print_swap_count();
 	puts("");
 	if (random)

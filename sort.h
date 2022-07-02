@@ -9,6 +9,8 @@
 
 int compare(int *array, int x, int y);
 
+int less(int *array, int x, int y);
+
 void swap(int *array, int x, int y);
 
 void print(int *array, int size);
